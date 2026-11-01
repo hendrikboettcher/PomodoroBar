@@ -43,7 +43,6 @@ cp Icon/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cp -R Localization/*.lproj "$APP/Contents/Resources/"
 
 # Ad-hoc-Signatur (nötig für Benachrichtigungen)
-chmod -R g+w "$APP"
 codesign --force --deep --sign - "$APP"
 echo "✅ Fertig: $APP ($VERSION)"
 
@@ -54,8 +53,6 @@ echo "✅ Fertig: $APP ($VERSION)"
 pkill -f "PomodoroBar.app/Contents/MacOS/PomodoroBar" || true
 rm -rf /Applications/PomodoroBar.app
 cp -R "$APP" /Applications/
-# Gruppe admin darf schreiben, damit auch andere Admin-Accounts dieses Macs die App aktualisieren können
-chmod -R g+w /Applications/PomodoroBar.app
 LSREGISTER=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
 "$LSREGISTER" -u "$APP" 2>/dev/null || true
 "$LSREGISTER" -f /Applications/PomodoroBar.app
